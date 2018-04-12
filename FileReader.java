@@ -2,12 +2,11 @@ package Classes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileReader {
-    String fileName;
-    File file;
+    private String fileName;
+    private File file;
 
     public FileReader(String fileName) {
 
@@ -19,8 +18,8 @@ public class FileReader {
         this.file = new File(this.fileName);
 
     }
-    public ArrayList readAll() {
-        ArrayList totalFile = new ArrayList();
+    public String readAll() {
+        String totalFile = "";
 
         try {
             Scanner myScanner = new Scanner(this.file);
@@ -28,8 +27,7 @@ public class FileReader {
 
             while (myScanner.hasNext()) {
                 String word = myScanner.next();
-
-                totalFile.add(word);
+                totalFile = totalFile.concat(word);
 
             }
 

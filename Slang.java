@@ -1,30 +1,29 @@
 package Classes;
 
+import java.util.ArrayList;
+
 public class Slang {
     //attributes
-    private String slangWords;
-    private int noOfSlangWords;
+    private String slang;
+    private int noOfSlangWords = 0;
 
     //constructors counts the number of slang words
-    public Slang extends FileExaminer(String slangWords, int noOfSlangWords) {
+    public Slang(String slang, int noOfSlangWords) {
 
-        this.slangWords = slangWords;
+        this.slang = slang;
         this.noOfSlangWords = noOfSlangWords;
 
         FileReader slangFile = new FileReader("slang.txt");
         slangFile.openFile();
-        slangWords = slangFile.readAll();
-
+        String slangWords = slangFile.readAll();
 
         //check if formal or informal
-        for(int i = 0;i < slangFile.length(); i++){
+        for(int i = 0;i < slangWords.length(); i++){
 
-            if(slangWords.equals(slangFile[i])) {
+            if(slang.equals(slangWords[i])) {
                 System.out.println("Slang word found.");
                 noOfSlangWords++;
             }
         }
     }
 }
-
-*/

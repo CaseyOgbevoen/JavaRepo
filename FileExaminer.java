@@ -4,28 +4,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class FileExaminer {
-    String fileName;
-    File file;
+public class FileExaminer{
 
     static int totalNoOfWords = 0;
     static int totalNoOfChars = 0;
     static int shortWords = 0;
     static int longWords = 0;
     static int avgWordLength = 0;
-    static boolean Formal = false;
+    static boolean formal = false;
 
-    public FileExaminer(String fileName) {
 
-        this.fileName = fileName;
-    }
-
-    public void openFile() {
-
-        this.file = new File(this.fileName);
-
-    }
     public String readAll() {
+        .openFile();
+        String slangWords = slangFile.readAll();
+
         String totalFile = "";// = new ArrayList();
 
         try {
@@ -65,10 +57,10 @@ public class FileExaminer {
 
         //if there are more long words or short words
         if(shortWords > longWords) {
-            Formal = false;
+            formal = false;
         }
         else {
-            Formal = true;
+            formal = true;
         }
 
         System.out.println("Total no of Words: " + totalNoOfWords);
@@ -76,7 +68,7 @@ public class FileExaminer {
         System.out.println("Total no of Short Words: " + shortWords);
         System.out.println("Total no of Long Words: " + longWords);
         System.out.println("Average Word Length: " + avgWordLength);
-        if(Formal == true){
+        if(formal == true){
             System.out.println("Formal Language");
         }
         else {

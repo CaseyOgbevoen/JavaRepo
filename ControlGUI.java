@@ -20,11 +20,11 @@ public class ControlGUI extends JFrame implements ActionListener {
     public ControlGUI (String title){
         super(title);
         setLayout(new FlowLayout());
-        setSize(500,500);
+        setSize(500,200);
 
         //initialise textfields
-        fileName = new JTextField("Enter Filename");
-        newWord = new JTextField("Add Word");
+        fileName = new JTextField("Enter Filename",20);
+        newWord = new JTextField("Add Word",21);
 
         //initialise buttons
         enterFile = new JButton("Enter");
@@ -32,9 +32,9 @@ public class ControlGUI extends JFrame implements ActionListener {
 
         //add components
         add(fileName);
-        add(newWord);
-
         add(enterFile);
+
+        add(newWord);
         add(addWord);
 
         //add action listener
@@ -51,14 +51,16 @@ public class ControlGUI extends JFrame implements ActionListener {
             FileReader F1 = new FileReader(fileName.getText());
             F1.openFile();
             totalFile = F1.readExamine();
-            System.out.println(totalFile);
 
-            //JOptionPane.showMessageDialog(this,);
+            System.out.println("\nFilename: " + fileName.getText());
+            System.out.println(totalFile);
+            JOptionPane.showMessageDialog(this,"File has been Examined! Please look to System Output for Results.");
         }
         if(Event.getSource() == addWord) {
             //write word to slang file
             FileReader F2 = new FileReader(newWord.getText());
             F2.appendToFile(newWord.getText());
+
             System.out.println("Word has been Added!");
             JOptionPane.showMessageDialog(this,"Word has been Added!");
         }

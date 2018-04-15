@@ -50,7 +50,7 @@ public class FileReader {
         int totalNoOfChars = 0;
         int shortWords = 0;
         int longWords = 0;
-        int avgWordLength;
+        float avgWordLength;
 
         try {
             Scanner myScanner = new Scanner(this.file);
@@ -66,7 +66,6 @@ public class FileReader {
                 //check if word is in slang file
                 Slang checkSlang = new Slang(word);
                 noOfSlangWords = noOfSlangWords + checkSlang.countString(word);
-                System.out.println("No of Slang Words: " + noOfSlangWords);
 
                 //check if long word
                 if(word.length() > 6) {
@@ -86,14 +85,14 @@ public class FileReader {
         //get average word length
         avgWordLength = totalNoOfChars/totalNoOfWords;
 
-        //if there are more long words or short words
-        if(shortWords > longWords) {
-            //formal = false;
-            System.out.println("\nInformal Language");
+        //decide if file is formal or informal
+        //more long words than short AND an average word length of greater or equal to 5.1 (general average word length)
+        //OR slang words make up less than 10% of the document
+        if((longWords > shortWords && avgWordLength >= 5.0) || (noOfSlangWords/totalNoOfWords)*(100) <= 10 ) {
+            System.out.println("\nFormal Language\n");
         }
         else {
-            //formal = true;
-            System.out.println("\nFormal Language");
+            System.out.println("\nInformal Language\n");
         }
 
         //******figure out toSting method***********
@@ -102,6 +101,7 @@ public class FileReader {
         System.out.println("Total no of Short Words: " + shortWords);
         System.out.println("Total no of Long Words: " + longWords);
         System.out.println("Average Word Length: " + avgWordLength);
+        System.out.println("No of Slang Words: " + noOfSlangWords);
 
         return totalFile;
     }
@@ -109,6 +109,7 @@ public class FileReader {
     // get hold of a Print writer object
     void appendToFile(String slangWord)
     {
+        /******** REF This code is taking from stack overflow https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java*/
         FileWriter fw;
         BufferedWriter bw;
         PrintWriter out;
@@ -117,9 +118,10 @@ public class FileReader {
             fw = new FileWriter("slang.txt", true);
             bw = new BufferedWriter(fw);
             out = new PrintWriter(bw);
-            out.println(slangWord);
+            out.println("\n" + slangWord);
             out.close();
         }
+        /******** End of REF This code is taking from stack overflow https://stackoverflow.com/questions/1625234/how-to-append-text-to-an-existing-file-in-java*/
         catch (IOException e)
         {
             System.out.println("run time error " + e.getMessage());

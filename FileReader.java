@@ -1,10 +1,8 @@
 package Classes;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.PrintWriter;
 
 
 public class FileReader {
@@ -67,7 +65,8 @@ public class FileReader {
 
                 //check if word is in slang file
                 Slang checkSlang = new Slang(word);
-                checkSlang.countString(word, noOfSlangWords);
+                noOfSlangWords = noOfSlangWords + checkSlang.countString(word);
+                System.out.println("No of Slang Words: " + noOfSlangWords);
 
                 //check if long word
                 if(word.length() > 6) {
@@ -107,45 +106,23 @@ public class FileReader {
         return totalFile;
     }
 
-    /*
     // get hold of a Print writer object
-    public void fileWrite(String line) {
-        try
-        {
-            PrintWriter Input = new PrintWriter("slang.txt");
-            Input.fileWrite(line);
-            System.out.println(line);
-
-        }
-        catch (FileNotFoundException e)
-        {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-    }
-    */
-
-    // get hold of a Print writer object
-    void getFileWriter()
+    void appendToFile(String slangWord)
     {
+        FileWriter fw;
+        BufferedWriter bw;
+        PrintWriter out;
         try
         {
-            Input = new PrintWriter("slang.txt");
+            fw = new FileWriter("slang.txt", true);
+            bw = new BufferedWriter(fw);
+            out = new PrintWriter(bw);
+            out.println(slangWord);
+            out.close();
         }
-        catch (FileNotFoundException e)
+        catch (IOException e)
         {
             System.out.println("run time error " + e.getMessage());
         }
-
     }
-
-    // wtite a string to the file
-    void writeLineToFile(String line)
-    {
-        System.out.println(line);
-        Input.println(line);
-    }
-
-
-
 }

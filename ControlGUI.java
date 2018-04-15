@@ -58,8 +58,9 @@ public class ControlGUI extends JFrame implements ActionListener {
         if(Event.getSource() == addWord) {
             //write word to slang file
             FileReader F2 = new FileReader(newWord.getText());
-            F2.getFileWriter();
-            F2.writeLineToFile(newWord.getText());
+            F2.appendToFile(newWord.getText());
+            System.out.println("Word has been Added!");
+            JOptionPane.showMessageDialog(this,"Word has been Added!");
         }
 
     }

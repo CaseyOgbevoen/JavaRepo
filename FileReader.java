@@ -4,10 +4,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.PrintWriter;
+
 
 public class FileReader {
     private String fileName;
     private File file;
+    private PrintWriter Input;
 
     public FileReader(String fileName) {
 
@@ -49,8 +52,7 @@ public class FileReader {
         int totalNoOfChars = 0;
         int shortWords = 0;
         int longWords = 0;
-        int avgWordLength = 0;
-        //boolean formal = false;
+        int avgWordLength;
 
         try {
             Scanner myScanner = new Scanner(this.file);
@@ -95,6 +97,7 @@ public class FileReader {
             System.out.println("\nFormal Language");
         }
 
+        //******figure out toSting method***********
         System.out.println("Total no of Words: " + totalNoOfWords);
         System.out.println("Total no of Characters: " + totalNoOfChars);
         System.out.println("Total no of Short Words: " + shortWords);
@@ -103,4 +106,46 @@ public class FileReader {
 
         return totalFile;
     }
+
+    /*
+    // get hold of a Print writer object
+    public void fileWrite(String line) {
+        try
+        {
+            PrintWriter Input = new PrintWriter("slang.txt");
+            Input.fileWrite(line);
+            System.out.println(line);
+
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+    }
+    */
+
+    // get hold of a Print writer object
+    void getFileWriter()
+    {
+        try
+        {
+            Input = new PrintWriter("slang.txt");
+        }
+        catch (FileNotFoundException e)
+        {
+            System.out.println("run time error " + e.getMessage());
+        }
+
+    }
+
+    // wtite a string to the file
+    void writeLineToFile(String line)
+    {
+        System.out.println(line);
+        Input.println(line);
+    }
+
+
+
 }

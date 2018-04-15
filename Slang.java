@@ -4,26 +4,30 @@ import java.util.ArrayList;
 
 public class Slang {
     //attributes
-    private String slang;
-    private int noOfSlangWords = 0;
+    private String word;
 
-    //constructors counts the number of slang words
-    public Slang(String slang, int noOfSlangWords) {
+    //constructor counts the number of slang words
+    public  Slang(String word) {
 
-        this.slang = slang;
-        this.noOfSlangWords = noOfSlangWords;
+        this.word = word;
+    }
 
-        FileReader slangFile = new FileReader("slang.txt");
+    public int countString(String word, int noOfSlangWords) {
+
+        //open/read file
+        FileReader slangFile = new FileReader("temp.txt");
         slangFile.openFile();
-        String slangWords = slangFile.readAll();
+        ArrayList slangWords = slangFile.readAll();
+        //noOfSlangWords = 0;
 
-        //check if formal or informal
-        for(int i = 0;i < slangWords.length(); i++){
+        //check if word appears in slang word file
+        for(int i = 0;i < slangWords.size(); i++){
 
-            if(slang.equals(slangWords[i])) {
-                System.out.println("Slang word found.");
+            if(word.equalsIgnoreCase(String.valueOf(slangWords.get(i)))) {
                 noOfSlangWords++;
+                System.out.println("No of Slang Words: " + noOfSlangWords);
             }
         }
+        return noOfSlangWords;
     }
 }

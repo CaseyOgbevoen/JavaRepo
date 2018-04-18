@@ -1,5 +1,13 @@
 package Classes;
 
+/*****************************************************************
+ * Author: Casey Ogbevoen
+ * Date: March/April 2018
+ * OS: Windows 10
+ * Purpose: This class contains all the methods for file reading
+ *          and management.
+ *****************************************************************/
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,7 +16,6 @@ import java.util.Scanner;
 public class FileReader {
     private String fileName;
     private File file;
-    private PrintWriter Input;
 
     public FileReader(String fileName) {
 
@@ -22,6 +29,7 @@ public class FileReader {
     }
 
     public ArrayList readAll() {
+
         ArrayList totalFile = new ArrayList();
 
         try {
@@ -41,8 +49,7 @@ public class FileReader {
         return totalFile;
     }
 
-    public ArrayList readExamine() {
-        ArrayList totalFile = new ArrayList();
+    public void readExamine() {
 
         String word;
         int noOfSlangWords = 0;
@@ -57,7 +64,6 @@ public class FileReader {
 
             while (myScanner.hasNext()) {
                 word = myScanner.next();
-                totalFile.add(word);
 
                 //count characters and word
                 totalNoOfWords++;
@@ -65,7 +71,7 @@ public class FileReader {
 
                 //check if word is in slang file
                 Slang checkSlang = new Slang(word);
-                noOfSlangWords = noOfSlangWords + checkSlang.countString(word);
+                noOfSlangWords = noOfSlangWords + checkSlang.countSlang(word);
 
                 //check if long word
                 if(word.length() > 6) {
@@ -86,24 +92,24 @@ public class FileReader {
         avgWordLength = totalNoOfChars/totalNoOfWords;
 
         //decide if file is formal or informal
-        //more long words than short AND an average word length of greater or equal to 5.1 (general average word length)
-        //OR slang words make up less than 10% of the document
-        if((longWords > shortWords && avgWordLength >= 5.0) || (noOfSlangWords/totalNoOfWords)*(100) <= 10 ) {
-            System.out.println("\nFormal Language\n");
+        //if there are more long words than short words and the average word length is around 5
+        if(longWords > shortWords && avgWordLength > 4.8) {
+            System.out.println("Formal Language\n");
+        }
+        //if there are less than 10 slang words used - just a few
+        if(noOfSlangWords < 10) {
+            System.out.println("Formal Language\n");
         }
         else {
-            System.out.println("\nInformal Language\n");
+            System.out.println("Informal Language\n");
         }
 
-        //******figure out toSting method***********
         System.out.println("Total no of Words: " + totalNoOfWords);
         System.out.println("Total no of Characters: " + totalNoOfChars);
         System.out.println("Total no of Short Words: " + shortWords);
         System.out.println("Total no of Long Words: " + longWords);
         System.out.println("Average Word Length: " + avgWordLength);
         System.out.println("No of Slang Words: " + noOfSlangWords);
-
-        return totalFile;
     }
 
     // get hold of a Print writer object

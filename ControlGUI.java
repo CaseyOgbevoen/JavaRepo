@@ -1,11 +1,16 @@
 package Classes;
 
-//import java.util.ArrayList;
+/***************************************************************************
+ * Author: Casey Ogbevoen
+ * Date: March/April 2018
+ * OS: Windows 10
+ * Purpose: The function of this class is to initialise the GUI screen
+ *          and all the functionality that occurs once a button is pushed.
+ ***************************************************************************/
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.*;
 
 public class ControlGUI extends JFrame implements ActionListener {
@@ -47,22 +52,32 @@ public class ControlGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent Event) {
         if(Event.getSource() == enterFile) {
-            ArrayList totalFile;
+            System.out.println("\nFilename: " + fileName.getText());
             FileReader F1 = new FileReader(fileName.getText());
             F1.openFile();
-            totalFile = F1.readExamine();
+            F1.readExamine();
 
-            System.out.println("\nFilename: " + fileName.getText());
-            System.out.println(totalFile);
-            JOptionPane.showMessageDialog(this,"File has been Examined! Please look to System Output for Results.");
+            JOptionPane.showMessageDialog(this,"File has been Examined! Please look to the System Output for Results.");
         }
         if(Event.getSource() == addWord) {
-            //write word to slang file
-            FileReader F2 = new FileReader(newWord.getText());
-            F2.appendToFile(newWord.getText());
 
-            System.out.println("Word has been Added!");
-            JOptionPane.showMessageDialog(this,"Word has been Added!");
+            //check if word is already in slang file
+            int appears = 0;
+            Slang textWord = new Slang(newWord.getText());
+            appears = appears + textWord.countSlang(newWord.getText());
+
+            if(appears == 1){
+                JOptionPane.showMessageDialog(this, "Error. This word is already in the Slang File.");
+
+            }
+            else {
+                //write word to slang file
+                FileReader F2 = new FileReader(newWord.getText());
+                F2.appendToFile(newWord.getText());
+
+                System.out.println("Word has been Added!");
+                JOptionPane.showMessageDialog(this, "Word has been Added!");
+            }
         }
 
     }
